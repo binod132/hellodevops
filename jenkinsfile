@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     environment {
-        // Define Docker Hub credentials
+        // Define Docker Hub credentials.
         DOCKER_HUB_CREDENTIALS = credentials('docker-hub-credentials')
         // Define Docker image name
         DOCKER_IMAGE_NAME = 'binod132/helloworld'
