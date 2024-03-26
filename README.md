@@ -88,7 +88,7 @@ sudo systemctl enable jenkins
 ```
 7. Access Jenkins
 ```http://localhost:8080```
-8. Unlock Jenkins
+8. Unlock Jenkins.
 During the first visit, Jenkins will ask you to unlock it using an initial admin password. You can find this password in the Jenkins log file:
 ```sudo cat /var/log/jenkins/jenkins.log | grep "initialAdminPassword"
 ```
