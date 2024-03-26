@@ -1,0 +1,114 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "echalanapi.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "echalanapi.name" . }}
+    helm.sh/chart: {{ include "echalanapi.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+data:
+  application.conf: |
+    redis.host=192.168.18.93
+    redis.port=6379
+    redis.database=0
+    redis.password=IRISredisSDCFGHJKV1gfgh3456BNMFGHJIRIS
+
+    db.echalan.pool.max.active = 50
+    db.echalan.pool.initial.size = 20
+    db.echalan.pool.max.wait = 80000
+    db.echalan.pool.removeAbandonedTimeout = 60
+    db.echalan.pool.min.idle = 10
+    db.echalan.pool.max.idle = 20
+    echalan.db.validation.query = select 1 from dual
+    echalan.db.driver = oracle.jdbc.driver.OracleDriver
+
+    echalan.db.host = 192.168.10.76
+    echalan.db.url = jdbc:oracle:thin:echalan/echalan@192.168.10.76:1521/tdb
+    echalan.db.port = 3306
+    echalan.db.name = echalan
+    echalan.db.user = echalan
+    echalan.db.password = echalan_traffic
+
+    session.timeout=600
+
+    rims.username = TrafficAPI
+    rims.password = DKfdjfdkj45@
+    rims.api.host = https://newrmis.fcgo.gov.np/rmis/api/
+    rims.api.endpoint.login = login
+    rims.api.endpoint.voucher.create = ebp/requests
+    rims.api.endpoint.voucher.check = ebp/posts/
+
+
+    rims.api.data.payer.address=Kathmandu
+    rims.api.data.payer.phone = 763
+    rims.api.data.payer.code = RefNo
+    rims.api.data.bank.id = 11002
+    rims.api.data.rcagency.id = 6634
+    rims.api.data.revenuehead.id = 14312
+    rims.api.data.purpose.id = -1
+    rims.api.data.fiscal.year.id = 2076
+    rims.api.data.tax.year.id = 2077
+    rims.api.data.request.date = 2020/02/27
+
+
+
+    rims.middleware.host = http://192.168.12.44:7777/nprmis/
+    rims.middleware.endpoint.login = oauth/token
+    rims.middleware.endpoint.voucher.create = client/request-for-code
+    rims.middleware.endpoint.voucher.check =payment/search-by-request-code?requestCode=
+    rims.middleware.client.id = TVRS_LIVE
+    rims.middleware.client.secret = Test@12345
+    rims.middleware.grant.type = client_credentials
+    rims.middleware.api.data.payer.address=Kathmandu
+    rims.middleware.api.data.payer.phone = 763
+    rims.middleware.api.data.rcagency.id = 6634
+
+
+    echalan.internal.api=https://apitvrs.nepalpolice.gov.np/echalan-api
+    echalan.tid=2343569812
+    echalan.token=7037fdabc2304837a4841a9bbcb12d8f
+
+
+    fonepay.merchant.api=https://merchantapi.fonepay.com/api/merchant/merchantDetailsForThirdParty/thirdPartyDynamicQrDownload
+    fonepay.secret.key=https://merchantapi.fonepay.com/api/merchant/merchantDetailsForThirdParty/thirdPartyDynamicQrDownload
+    fonepay.hmac.sha512=HmacSHA512
+    fonepay.merchant.code=2001060259
+    fonepay.user.name=mtpd@fonepay.com
+    fonepay.password=Mtpd@123#
+
+
+    qr.code.bank.code=11015
+
+    
+  application.properties: |
+    server.port=9080
+    logging.level.root=DEBUG
+
+  logback.xml: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <configuration>
+
+        <!-- Send debug messages to System.out -->
+        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <!-- By default, encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
+            <encoder>
+                <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n</pattern>
+            </encoder>
+        </appender>
+
+        <logger name="org.eclipse.jetty" level="ERROR"/>
+        <logger name="org.apache.commons" level="ERROR"/>
+        <logger name="org.apache.tomcat" level="ERROR"/>
+        <logger name="org.springframework.web" level="ERROR"/>
+        <logger name="org.springframework" level="ERROR"/>
+        <logger name="org.apache" level="ERROR"/>
+        <logger name="org.apache.http" level="ERROR"/>
+        <logger name="com.treeleaf.echalan" level="ALL"/>
+
+        <root level="ERROR">
+            <!--<appender-ref ref="FILE" />-->
+            <appender-ref ref="STDOUT"/>
+        </root>
+
+    </configuration>

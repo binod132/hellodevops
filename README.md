@@ -60,3 +60,37 @@ Note: Check your Docker Desktop is running
 ```docker run -p 3000:3000 -d nodejs-hello-world```
 6. Test the Application.
 ```http://localhost:3000```
+
+## Jenkins Configuration:
+### Install Jenkins (ubuntu)
+1. Update Package Index
+```
+sudo apt update
+```
+2. Install Java
+```sudo apt install openjdk-11-jdk
+```
+3. Add Jenkins Repository Key
+```wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+```
+4. Add Jenkins Repository
+```sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+```
+5. Install Jenkins
+```
+sudo apt update
+sudo apt install jenkins
+```
+6. Start Jenkins Service
+```
+sudo systemctl start jenkins
+sudo systemctl enable jenkins
+```
+7. Access Jenkins
+```http://localhost:8080```
+8. Unlock Jenkins
+During the first visit, Jenkins will ask you to unlock it using an initial admin password. You can find this password in the Jenkins log file:
+```sudo cat /var/log/jenkins/jenkins.log | grep "initialAdminPassword"
+```
+if not present
+```sudo cat /var/lib/jenkins/secrets/initialAdminPassword```
